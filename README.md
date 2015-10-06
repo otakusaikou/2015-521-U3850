@@ -17,6 +17,6 @@ ArcGIS 10.2 or higher.
 ###Python
 [Python v2.7.X](https://www.python.org) with the following modules to be installed.
 
--Arcpy
+-Arcpy  
 -[Numpy](http://www.numpy.org)  
 -[Psycopg2-2.6.1 for python2.7](http://initd.org/psycopg)
