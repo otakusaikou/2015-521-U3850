@@ -41,7 +41,7 @@ CREATE TABLE public.school
   id integer NOT NULL DEFAULT nextval('school_id_seq'::regclass),
   geom geometry(Point, 3826),
   school_name varchar(90),
-  code varchar(90),
+  code varchar(10),
 
   CONSTRAINT SCHOOLPK 
     PRIMARY KEY (id)
