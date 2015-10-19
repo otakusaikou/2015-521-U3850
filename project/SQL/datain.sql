@@ -48,6 +48,15 @@ FROM
                    TYPE,
                    kind
    FROM public.roadin
+   WHERE (txt,
+          fullname,
+          TYPE,
+          kind) NOT IN
+       (SELECT road_name,
+               full_name,
+               TYPE,
+               kind
+        FROM road_info)
    ORDER BY txt) T;
 
 
@@ -83,3 +92,4 @@ FROM public.schoolin SC;
 
 
 DROP TABLE IF EXISTS public.schoolin;
+
