@@ -1,9 +1,10 @@
 var town_source = new ol.source.Vector({
   format: new ol.format.GeoJSON(),
   url: function(extent, resolution, projection) {
-    return 'http://192.168.1.102:8080/geoserver/wfs?service=WFS&' +
+    return 'http://140.112.11.86:8080/geoserver/wfs?service=WFS&' +
         'version=1.1.0&request=GetFeature&typename=school:town_view&' +
-        'outputFormat=application/json&srsname=EPSG:4326&';
+        'outputFormat=application/json&srsname=EPSG:3857&' +
+        'bbox=' + extent.join(',') + ',EPSG:3857';
   },
   strategy: ol.loadingstrategy.tile(ol.tilegrid.createXYZ({
     maxZoom: 19
@@ -13,9 +14,23 @@ var town_source = new ol.source.Vector({
 var school_source = new ol.source.Vector({
   format: new ol.format.GeoJSON(),
   url: function(extent, resolution, projection) {
-    return 'http://192.168.1.102:8080/geoserver/wfs?service=WFS&' +
+    return 'http://140.112.11.86:8080/geoserver/wfs?service=WFS&' +
         'version=1.1.0&request=GetFeature&typename=school:school&' +
-        'outputFormat=application/json&srsname=EPSG:4326&';
+        'outputFormat=application/json&srsname=EPSG:3857&' +
+        'bbox=' + extent.join(',') + ',EPSG:3857';
+  },
+  strategy: ol.loadingstrategy.tile(ol.tilegrid.createXYZ({
+    maxZoom: 19
+  }))
+});
+
+var road_source = new ol.source.Vector({
+  format: new ol.format.GeoJSON(),
+  url: function(extent, resolution, projection) {
+    return 'http://140.112.11.86:8080/geoserver/wfs?service=WFS&' +
+        'version=1.1.0&request=GetFeature&typename=school:road_view&' +
+        'outputFormat=application/json&srsname=EPSG:3857&' +
+        'bbox=' + extent.join(',') + ',EPSG:3857';
   },
   strategy: ol.loadingstrategy.tile(ol.tilegrid.createXYZ({
     maxZoom: 19
@@ -33,6 +48,13 @@ var ptStyle = new ol.style.Style({
             width: 1
         })
     })
+});
+
+var lineStyle = new ol.style.Style({
+  stroke: new ol.style.Stroke({
+    color: 'rgba(20,130,150,0.8)',
+    width: 0.5
+  })
 });
 
 var polyStyle = new ol.style.Style({
@@ -67,6 +89,11 @@ var schoolLayers = new ol.layer.Group({
                 polyStyle.getText().setText(resolution < 200 ? feature.get('town_name') : '');
                 return styles;
             }
+        }),
+        new ol.layer.Vector({
+            title: "Road",
+            source: road_source,
+            style: lineStyle
         }),
         new ol.layer.Vector({
             title: "School",
