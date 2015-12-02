@@ -19,4 +19,5 @@ ArcGIS 10.2 or higher.
 
 -Arcpy  
 -[Numpy](http://www.numpy.org)  
--[Psycopg2-2.6.1 for python2.7](http://initd.org/psycopg)
+-[Psycopg2-2.6.1 for python2.7](http://initd.org/psycopg)  
+-[Sympy](http://www.sympy.org/en/index.html)
