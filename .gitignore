@@ -2,3 +2,7 @@
 *log.txt
 *.ini
 *.pyc
+*.pptx
+*.docx
+*.swp
+
